@@ -15,7 +15,7 @@ namespace LiteBerryPiMobile.Views
     public NewItemPage()
     {
       InitializeComponent();
-      BindingContext = new NewItemViewModel();
+      
     }
   }
 }
