@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LiteBerryPiMobile.Views.DesignPage"
+             xmlns:vm="clr-namespace:LiteBerryPiMobile.ViewModels"
+             Title="{Binding Title}">
+
+    <ContentPage.BindingContext>
+    <vm:DesignViewModel />
+</ContentPage.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+            <ScrollView Grid.Row="1">
+    <StackLayout>
+                
+    <Label Text="Welcome to the LiteBerry Pi Designer Page"                   
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"
+                FontSize="Title"
+                HorizontalTextAlignment="Center"
+           />
+
+    <Button Text="Press To Go Somewhere"
+                    Command="{Binding OpenWebCommand}"
+                    BackgroundColor="#ff2400"
+                    TextColor="White"/>
+</StackLayout>
+            </ScrollView>
+    </Grid>
+</ContentPage>
