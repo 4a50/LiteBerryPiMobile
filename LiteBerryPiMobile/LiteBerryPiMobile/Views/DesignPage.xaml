@@ -8,27 +8,13 @@
     <ContentPage.BindingContext>
     <vm:DesignViewModel />
 </ContentPage.BindingContext>
-    <Grid>
-        <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-            <ScrollView Grid.Row="1">
-    <StackLayout>
-                
-    <Label Text="Welcome to the LiteBerry Pi Designer Page"                   
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand"
-                FontSize="Title"
-                HorizontalTextAlignment="Center"
-           />
-
-    <Button Text="Press To Go Somewhere"
-                    Command="{Binding OpenWebCommand}"
-                    BackgroundColor="#ff2400"
-                    TextColor="White"/>
-</StackLayout>
-            </ScrollView>
+    
+    <Grid x:Name="nGrid">
+        
+    
+    <!--<Button Margin="0,10,0,0" Text="Send Some Happy Thoughts!"
+                        Clicked="OnButtonClicked"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White" /> -->
     </Grid>
 </ContentPage>
