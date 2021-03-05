@@ -13,7 +13,7 @@ namespace LiteBerryPiMobile
     {
       InitializeComponent();
 
-      DependencyService.Register<MockDataStore>();
+      DependencyService.Register<SQListDatabase>();
       MainPage = new AppShell();
     }
 
