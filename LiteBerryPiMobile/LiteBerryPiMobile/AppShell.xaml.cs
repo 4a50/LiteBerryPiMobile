@@ -12,8 +12,10 @@ namespace LiteBerryPiMobile
     {
       InitializeComponent();
       Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-      Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
-    }
+      Routing.RegisterRoute(nameof(DesignPage), typeof(DesignPage));
+      Routing.RegisterRoute(nameof(DesignSaved), typeof(DesignSaved));
 
+    }
+    
   }
 }

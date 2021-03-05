@@ -1,0 +1,17 @@
+<Button 
+        Grid.Row="16"
+        Grid.Column="0"
+        Text="Press To Go Somewhere"
+        Command="{Binding OpenWebCommand}"
+        BackgroundColor="#ff2400"
+        TextColor="White"/>
+		          
+    <Label 
+       
+        Text="Welcome to the LiteBerry Pi Designer Page"                   
+                VerticalOptions="CenterAndExpand" 
+                Grid.ColumnSpan="5"
+                HorizontalOptions="CenterAndExpand"
+                FontSize="Title"
+                HorizontalTextAlignment="Center"
+           />
