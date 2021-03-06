@@ -11,9 +11,9 @@ namespace LiteBerryPiMobile.Services
   {
     readonly SQLiteAsyncConnection database;
 
-    SQListDatabase()
+    public SQListDatabase()
     {
-      string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Items.db3");
+      string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LPB.db3");
       database = new SQLiteAsyncConnection(path);
       database.CreateTableAsync<LBData>().Wait();
     }

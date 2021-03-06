@@ -18,6 +18,7 @@ namespace LiteBerryPiMobile.Views
     readonly DesignViewModel _dvm;
     public DesignPage()
     {
+      BindingContext = _dvm = new DesignViewModel(); //<--DI?
       selectedNodes = new List<string>();
       imageNodeList = new List<Image>();
       InitializeComponent();
@@ -140,6 +141,7 @@ namespace LiteBerryPiMobile.Views
         _dvm.Save(selectedNodes, designName);
         LBData printEntry = await _dvm.GetWithDesignName(designName);
         Debug.WriteLine($"Entry Made: {printEntry.DesignName} Coords: {printEntry.NodeCoord}");
+
         
       }
       catch(Exception e) { Debug.WriteLine(e.Message); }
