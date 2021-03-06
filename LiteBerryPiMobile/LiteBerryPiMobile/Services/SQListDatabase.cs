@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LiteBerryPiMobile.Models;
-using System.Threading.Tasks;
-using System.IO;
+﻿using LiteBerryPiMobile.Models;
 using SQLite;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace LiteBerryPiMobile.Services
 {
   class SQListDatabase : IDataStore<LBData>
   {
     readonly SQLiteAsyncConnection database;
+
     SQListDatabase()
     {
       string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Items.db3");
-      database = new SQLiteAsyncConnection(path);      
+      database = new SQLiteAsyncConnection(path);
       database.CreateTableAsync<LBData>().Wait();
     }
     public async Task<bool> AddItemAsync(LBData item)
@@ -33,8 +33,9 @@ namespace LiteBerryPiMobile.Services
 
     public async Task<bool> DeleteItemAsync(int id)
     {
-      try { 
-      await database.DeleteAsync(id);
+      try
+      {
+        await database.DeleteAsync(id);
         return true;
       }
       catch (Exception e)
@@ -48,15 +49,22 @@ namespace LiteBerryPiMobile.Services
     {
       return await database.Table<LBData>().Where(i => i.Id == id).FirstOrDefaultAsync();
     }
+    public async Task<LBData> GetNodeByDesignName (string name)
+    {
+      return await database.Table<LBData>().Where(i => i.DesignName == name).FirstOrDefaultAsync();
+    }
 
     public async Task<List<LBData>> GetItemsAsync(bool forceRefresh = false)
     {
       return await database.Table<LBData>().ToListAsync();
     }
-
+    public async Task<LBData> GetNodeByCoord(string nodecoord)
+    {
+      return await database.Table<LBData>().Where(i => i.NodeCoord == nodecoord).FirstOrDefaultAsync();
+    }
     public async Task<bool> UpdateItemAsync(LBData item)
     {
-      try 
+      try
       {
         int updatedItem = await database.UpdateAsync(item);
         return true;

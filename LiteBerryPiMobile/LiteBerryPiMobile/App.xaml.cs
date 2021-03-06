@@ -1,8 +1,5 @@
 ﻿using LiteBerryPiMobile.Services;
-using LiteBerryPiMobile.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace LiteBerryPiMobile
 {

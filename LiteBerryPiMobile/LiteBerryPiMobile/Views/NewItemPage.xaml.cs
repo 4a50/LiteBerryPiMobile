@@ -1,10 +1,5 @@
 ﻿using LiteBerryPiMobile.Models;
-using LiteBerryPiMobile.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace LiteBerryPiMobile.Views
 {
@@ -15,7 +10,7 @@ namespace LiteBerryPiMobile.Views
     public NewItemPage()
     {
       InitializeComponent();
-      
+
     }
   }
 }

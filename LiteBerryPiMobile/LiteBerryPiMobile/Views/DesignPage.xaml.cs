@@ -1,52 +1,71 @@
-﻿using System;
+﻿using LiteBerryPiMobile.Models;
+using LiteBerryPiMobile.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace LiteBerryPiMobile.Views
 {
   [XamlCompilation(XamlCompilationOptions.Compile)]
+
   public partial class DesignPage : ContentPage
   {
-    public List<string> strList { get; set; }
+    public List<string> selectedNodes { get; set; }
+    public List<Image> imageNodeList { get; set; }
+    readonly DesignViewModel _dvm;
     public DesignPage()
     {
-      strList = new List<string>();
+      selectedNodes = new List<string>();
+      imageNodeList = new List<Image>();
       InitializeComponent();
-      GenertateGrid();      
+      GenertateGrid();
 
-      //texterman.Text = "There are smiles around the other corner.";      
+    }
+    public void OnNodeClicked(Object sender, EventArgs e)
+    {
+      Image img = sender as Image;
+      //TODO: Fix Ugly way to get if image was selected or not.  Maybe use the database?  To many DBase calls?
+
+      string imgSource = img.Source.ToString().Split()[1];
+
+      if (imgSource == "nodeUnselect.png")
+      {
+        img.Source = ImageSource.FromFile("nodeSelect.png");
+        selectedNodes.Add(img.StyleId);
+
+      }
+      else if (imgSource == "nodeSelect.png")
+      {
+        img.Source = img.Source = ImageSource.FromFile("nodeUnselect.png");
+        try { selectedNodes.Remove(img.StyleId); }
+        catch { Console.WriteLine("No Entry Exsists!"); }
+      }
+      Debug.WriteLine("strList:");
+      foreach (string s in selectedNodes) { Debug.Write(s); }
+      Debug.WriteLine("endList");
+      OnPropertyChanged(nameof(img));
 
     }
     public void OnButtonClicked(Object sender, EventArgs e)
     {
-      Image img = sender as Image;
-      strList.Add(img.Id.ToString());
-      Debug.WriteLine($"IMAGE ID: {img.Id}  Source: {img.Source}");
-      string imgSource = img.Source.ToString().Split()[1];
-      
-      if (imgSource == "nodeUnselect.png")
+      Debug.WriteLine(e.ToString());
+      Button btn = sender as Button;
+      switch (btn.StyleId)
       {
-        Debug.WriteLine($"B {img.Source}");
-        img.Source = ImageSource.FromFile("nodeSelect.png");
-        Debug.WriteLine($"A {img.Source}");
+        case "reset-button":
+          ResetNodes();
+          break;
+        case "save-button":
+          SaveNodesToDataBase();
+
+          break;
+        default:
+          Console.WriteLine("Obj Called Does Not Meet Any Case");
+          break;
       }
-      else if (imgSource == "nodeSelect.png")
-      {
-        Debug.WriteLine($"B {img.Source}");
-        img.Source = img.Source = ImageSource.FromFile("nodeUnselect.png");
-        Debug.WriteLine($"A {img.Source}");
-      }
-      OnPropertyChanged(nameof(img));
-
-
-
-      Console.WriteLine();
     }
     public void GenertateGrid()
     {
@@ -59,36 +78,40 @@ namespace LiteBerryPiMobile.Views
       for (int j = 0; j < 16; j++)
       {
         nGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-      }     
+      }
       for (int r = 0; r < 16; r++)
       {
         for (int c = 0; c < 8; c++)
         {
-          nGrid.Children.Add(AddImageSource(r, c), c, r);          
+          nGrid.Children.Add(AddImageSource(r, c), c, r);
         }
-      }    
-
-      Button button = new Button
+      }
+      Button saveButton = new Button
       {
-       Text = "Press to Save",
-       BackgroundColor = (Color)Application.Current.Resources["Primary"],
-       TextColor = Color.White
+        StyleId = "save-button",
+        Text = "Press to Save",
+        BackgroundColor = (Color)Application.Current.Resources["Primary"],
+        TextColor = Color.White
       };
-      //button.Clicked += OnButtonClicked;
-      nGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto)});
-      nGrid.Children.Add(button,0,16);
-      Grid.SetColumnSpan(button, 8);
+      saveButton.Clicked += OnButtonClicked;
+      nGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+      nGrid.Children.Add(saveButton, 0, 16);
+      Grid.SetColumnSpan(saveButton, 6);
 
-      
-      //Console.WriteLine();
+      Button resetButton = new Button
+      {
+        StyleId = "reset-button",
+        Text = "Reset",
+        BackgroundColor = Color.Red,
+        TextColor = Color.White
+      };
+      resetButton.Clicked += OnButtonClicked;
+      nGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
+      nGrid.Children.Add(resetButton, 6, 16);
+      Grid.SetColumnSpan(resetButton, 2);
     }
     public View AddImageSource(int row, int col)
     {
-      //< Image Source = "nodeUnselect.png"
-      //         VerticalOptions = "Center"
-      //      HorizontalOptions = "Center"
-      //         Grid.Row = "0"
-      //      Grid.Column = "1" />
       Image img = new Image
       {
         StyleId = $"img-R{row}C{col}",
@@ -97,11 +120,29 @@ namespace LiteBerryPiMobile.Views
         Source = "nodeUnselect.png",
       };
       TapGestureRecognizer tappy = new TapGestureRecognizer();
-      tappy.Tapped += OnButtonClicked;
+      tappy.Tapped += OnNodeClicked;
       img.GestureRecognizers.Add(tappy);
-      
+      imageNodeList.Add(img);
       return img;
     }
-
+    public void ResetNodes()
+    {
+      foreach (Image im in imageNodeList)
+      {
+        im.Source = ImageSource.FromFile("nodeUnselect.png");
+      };
+    }
+    async void SaveNodesToDataBase()
+    {
+      try
+      {
+         string designName = await DisplayPromptAsync("Save LiteBerry Design", "Choose A Name to Save This Under");
+        _dvm.Save(selectedNodes, designName);
+        LBData printEntry = await _dvm.GetWithDesignName(designName);
+        Debug.WriteLine($"Entry Made: {printEntry.DesignName} Coords: {printEntry.NodeCoord}");
+        
+      }
+      catch(Exception e) { Debug.WriteLine(e.Message); }
+    }
   }
 }
