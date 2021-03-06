@@ -14,10 +14,10 @@ namespace LiteBerryPiMobile.ViewModels
     }
 
     public ICommand OpenWebCommand { get; }
-      void OnButtonClicked(object sender, EventArgs e)
-      {
-        (sender as Button).Text = "Some Thoughts are sent through the ether";
-      }
+    void OnButtonClicked(object sender, EventArgs e)
+    {
+      (sender as Button).Text = "Some Thoughts are sent through the ether";
+    }
 
 
   }

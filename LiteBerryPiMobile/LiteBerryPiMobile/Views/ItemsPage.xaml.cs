@@ -1,14 +1,5 @@
-﻿using LiteBerryPiMobile.Models;
-using LiteBerryPiMobile.ViewModels;
-using LiteBerryPiMobile.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LiteBerryPiMobile.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace LiteBerryPiMobile.Views
 {
@@ -25,8 +16,8 @@ namespace LiteBerryPiMobile.Views
 
     protected override void OnAppearing()
     {
-      base.OnAppearing();
-      _viewModel.OnAppearing();
+      //base.OnAppearing();
+      //_viewModel.OnAppearing();
     }
   }
 }

@@ -1,7 +1,4 @@
-﻿using LiteBerryPiMobile.ViewModels;
-using LiteBerryPiMobile.Views;
-using System;
-using System.Collections.Generic;
+﻿using LiteBerryPiMobile.Views;
 using Xamarin.Forms;
 
 namespace LiteBerryPiMobile
@@ -16,6 +13,6 @@ namespace LiteBerryPiMobile
       Routing.RegisterRoute(nameof(DesignSaved), typeof(DesignSaved));
 
     }
-    
+
   }
 }

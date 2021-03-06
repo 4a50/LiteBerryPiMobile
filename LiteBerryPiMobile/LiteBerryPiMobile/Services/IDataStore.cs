@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LiteBerryPiMobile.Services
@@ -8,8 +7,10 @@ namespace LiteBerryPiMobile.Services
   {
     Task<bool> AddItemAsync(T item);
     Task<bool> UpdateItemAsync(T item);
-    Task<bool> DeleteItemAsync(string id);
-    Task<T> GetItemAsync(string id);
-    Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+    Task<bool> DeleteItemAsync(int id);
+    Task<T> GetItemAsync(int id);
+    Task<T> GetNodeByCoord(string styleid);
+    Task<T> GetNodeByDesignName(string name);
+    Task<List<T>> GetItemsAsync(bool forceRefresh = false);
   }
 }

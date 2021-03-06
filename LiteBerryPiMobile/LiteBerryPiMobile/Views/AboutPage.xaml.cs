@@ -1,14 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace LiteBerryPiMobile.Views
 {
   public partial class AboutPage : ContentPage
   {
     public bool truth { get; set; }
-    
+
     public AboutPage()
     {
       InitializeComponent();
@@ -22,16 +20,16 @@ namespace LiteBerryPiMobile.Views
         (sender as Button).BackgroundColor = Color.Default;
         (sender as Button).CornerRadius = 0;
         //(sender as Button).BackgroundColor = ResourceDictionary;
-        
+
       }
-      else 
-      { 
+      else
+      {
         truth = true;
         (sender as Button).Text = "Some Happy Thoughts Are On There Way!";
         (sender as Button).BackgroundColor = Color.FromHex("#ff2400");
         (sender as Button).CornerRadius = 40;
       }
-      Console.WriteLine($"Persist: {truth}");      
+      Console.WriteLine($"Persist: {truth}");
     }
   }
 }

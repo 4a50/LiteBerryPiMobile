@@ -1,8 +1,5 @@
 ﻿using LiteBerryPiMobile.Services;
-using LiteBerryPiMobile.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace LiteBerryPiMobile
 {
@@ -13,7 +10,7 @@ namespace LiteBerryPiMobile
     {
       InitializeComponent();
 
-      DependencyService.Register<MockDataStore>();
+      DependencyService.Register<SQListDatabase>();
       MainPage = new AppShell();
     }
 

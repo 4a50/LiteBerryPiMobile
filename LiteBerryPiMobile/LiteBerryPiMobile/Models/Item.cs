@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LiteBerryPiMobile.Models
+﻿namespace LiteBerryPiMobile.Models
 {
   public class Item
   {
