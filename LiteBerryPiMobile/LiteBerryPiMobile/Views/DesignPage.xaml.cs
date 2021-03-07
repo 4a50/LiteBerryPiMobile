@@ -1,9 +1,13 @@
 ﻿using LiteBerryPiMobile.Models;
+using LiteBerryPiMobile.Services;
 using LiteBerryPiMobile.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,14 +19,15 @@ namespace LiteBerryPiMobile.Views
   {
     public List<string> selectedNodes { get; set; }
     public List<Image> imageNodeList { get; set; }
-    readonly DesignViewModel _dvm;
+    readonly DesignViewModel _dvm;      
     public DesignPage()
     {
       BindingContext = _dvm = new DesignViewModel(); //<--DI?
       selectedNodes = new List<string>();
-      imageNodeList = new List<Image>();
+      imageNodeList = new List<Image>();               
       InitializeComponent();
       GenertateGrid();
+
 
     }
     public void OnNodeClicked(Object sender, EventArgs e)
@@ -48,6 +53,7 @@ namespace LiteBerryPiMobile.Views
       foreach (string s in selectedNodes) { Debug.Write(s); }
       Debug.WriteLine("endList");
       OnPropertyChanged(nameof(img));
+      HapticFeedback.Perform(HapticFeedbackType.LongPress);
 
     }
     public void OnButtonClicked(Object sender, EventArgs e)
@@ -132,6 +138,7 @@ namespace LiteBerryPiMobile.Views
       {
         im.Source = ImageSource.FromFile("nodeUnselect.png");
       };
+      selectedNodes = new List<string>();
     }
     async void SaveNodesToDataBase()
     {
@@ -141,10 +148,17 @@ namespace LiteBerryPiMobile.Views
         _dvm.Save(selectedNodes, designName);
         LBData printEntry = await _dvm.GetWithDesignName(designName);
         Debug.WriteLine($"Entry Made: {printEntry.DesignName} Coords: {printEntry.NodeCoord}");
+        Vibration.Vibrate();
+        //Audio
+        DependencyService.Get<IAudio>().PlayAudioFile("ACNHWooHoo.mp3");
+        //
 
+
+        await DisplayAlert("Saved", $"Successfully Saved Design: {printEntry.DesignName} ", "Sounds Gravy");
         
       }
       catch(Exception e) { Debug.WriteLine(e.Message); }
     }
+    
   }
 }
