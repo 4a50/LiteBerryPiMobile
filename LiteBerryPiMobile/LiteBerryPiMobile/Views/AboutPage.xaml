@@ -31,10 +31,11 @@
         
         <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label Text="Welcome to the LiteBerry Pi" FontSize="Title"/>
-                <Label Text="Send good vibes with light" FontSize="Subtitle"/>                
-                <Label Text="It's easy to send a happy thought to the people you care about!  Simply choose from Pre-Made design or create your own!" FontSize="16" Padding="0,0,0,0"/>
-                <Label FontSize="16" Padding="0,24,0,0">
+                
+                <Label Text="Welcome to the LiteBerry Pi" FontSize="Title" TextColor="{StaticResource DefText}"/>
+                <Label Text="Send good vibes with light" FontSize="Subtitle" TextColor="{StaticResource DefText}"/>
+                <Label Text="It's easy to send a happy thought to the people you care about!  Simply choose from Pre-Made design or create your own!" FontSize="16" Padding="0,0,0,0" TextColor="{StaticResource DefText}"/>
+                <Label FontSize="16" Padding="0,4,0,0" TextColor="{StaticResource DefText}">
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>

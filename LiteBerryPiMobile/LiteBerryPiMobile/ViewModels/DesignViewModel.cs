@@ -39,7 +39,7 @@ namespace LiteBerryPiMobile.ViewModels
       foreach (string s in selectedNodes)
       {
         await DataStore.AddItemAsync(new LBData
-        {
+        { 
           Id = 0,
           IsEnabled = true,
           NodeCoord = s,

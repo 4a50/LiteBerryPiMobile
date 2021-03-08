@@ -44,6 +44,20 @@ namespace LiteBerryPiMobile.Services
         return false;
       }
     }
+    public async Task<bool> DeleteAllEntries()
+    {
+      try
+      {
+        await database.DeleteAllAsync<LBData>();
+        return true;
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e.Message);
+        return false;
+      }
+    }
+
 
     public async Task<LBData> GetItemAsync(int id)
     {

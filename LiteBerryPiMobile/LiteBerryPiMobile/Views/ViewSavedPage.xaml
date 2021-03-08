@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LiteBerryPiMobile.Views.ViewSavedPage"
+             xmlns:model="clr-namespace:LiteBerryPiMobile.Models"
+             xmlns:vm="clr-namespace:LiteBerryPiMobile.ViewModels">
+    <ContentPage.BindingContext>
+        <vm:ViewSavedModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" /> -->
+            <ListView x:Name="DataList" ItemsSource="{Binding DesignItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding DesignName}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+            </ListView>
+            <Button Text="Nuke The Database" BackgroundColor="Red"
+                    TextColor="Black"
+                    HeightRequest="60"
+                    FontSize="Large"
+                    FontAttributes="Bold"
+                    Clicked="OnNukedClicked"
+                    ></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
