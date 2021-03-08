@@ -145,17 +145,18 @@ namespace LiteBerryPiMobile.Views
       try
       {
          string designName = await DisplayPromptAsync("Save LiteBerry Design", "Choose A Name to Save This Under");
-        _dvm.Save(selectedNodes, designName);
-        LBData printEntry = await _dvm.GetWithDesignName(designName);
-        Debug.WriteLine($"Entry Made: {printEntry.DesignName} Coords: {printEntry.NodeCoord}");
-        Vibration.Vibrate();
-        //Audio
-        DependencyService.Get<IAudio>().PlayAudioFile("ACNHWooHoo.mp3");
-        //
-
-
-        await DisplayAlert("Saved", $"Successfully Saved Design: {printEntry.DesignName} ", "Sounds Gravy");
-        
+        if (designName != null)
+        {
+          _dvm.Save(selectedNodes, designName);
+          LBData printEntry = await _dvm.GetWithDesignName(designName);
+          Debug.WriteLine($"Entry Made: {printEntry.DesignName} Coords: {printEntry.NodeCoord}");
+          Vibration.Vibrate();
+          //Audio
+          DependencyService.Get<IAudio>().PlayAudioFile("ACNHWooHoo.mp3");
+          //
+          await DisplayAlert("Saved", $"Successfully Saved Design: {printEntry.DesignName} ", "Sounds Gravy");
+          ResetNodes();
+        }
       }
       catch(Exception e) { Debug.WriteLine(e.Message); }
     }

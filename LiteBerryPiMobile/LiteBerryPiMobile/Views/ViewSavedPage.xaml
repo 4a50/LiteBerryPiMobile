@@ -16,12 +16,18 @@
             <ListView x:Name="DataList" ItemsSource="{Binding DesignItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="Binding Text"/>
+                        <TextCell Text="{Binding DesignName}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 
             </ListView>
-            
+            <Button Text="Nuke The Database" BackgroundColor="Red"
+                    TextColor="Black"
+                    HeightRequest="60"
+                    FontSize="Large"
+                    FontAttributes="Bold"
+                    Clicked="OnNukedClicked"
+                    ></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
