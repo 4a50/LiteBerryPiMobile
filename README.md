@@ -1,6 +1,8 @@
 # LiteBerry Pi Mobile Interface
 ## Android Application
 
+### Version .5
+
 ### Getting Started
 
 [Download From GitHub](https://github.com/4a50/LiteBerryPiMobile)
@@ -31,4 +33,10 @@ Brief Description of LiteBerry Pi
 
 ![Design Diagram](./LiteBerryPiMobile\Assets\LiteBerryPiDiag.png)
 
+### Version
 
++ 0.5 - Initial Wire Up of Database components.
+
+### Author
+
+JP Jones
